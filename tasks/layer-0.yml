@@ -1,0 +1,16 @@
+---
+# file: tasks/layer-0.yml
+- name: "be sure that ports 80, 443, 2222 and 3000-3500 are open on interface eth0"
+  ufw: rule=allow interface=eth0 direction=in proto=tcp port={{ item }}
+  with_items:
+    - 80
+    - 443
+    - 2222
+    - '3000:3500'
+  notify: reload firewall
+- name: be sure the etcd token is present in /etc/init/flynn-host.conf
+  lineinfile: "dest=/etc/init/flynn-host.conf state=present backup=yes insertafter='^description' regexp='^env ETCD_DISCOVERY=' line='env ETCD_DISCOVERY={{discovery_token}}'"
+  tags: after-reboot
+- name: be sure that flynn-host is running
+  service: name=flynn-host state=restarted
+  tags: after-reboot

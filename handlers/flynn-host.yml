@@ -1,0 +1,4 @@
+---
+# file: handlers/flynn-host.yml
+- name: restart flynn-host
+  service: name=flynn-host state=restarted

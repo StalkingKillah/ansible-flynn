@@ -1,0 +1,4 @@
+---
+# file: handlers/firewall.yml
+- name: reload firewall
+  ufw: state=reloaded

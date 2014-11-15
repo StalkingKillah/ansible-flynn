@@ -1,0 +1,17 @@
+---
+# file: tasks/setup.yml
+- name: be sure that aufs module is present
+  modprobe: name=aufs state=present
+  register: aufs_module_result
+  ignore_errors: True
+- name: be sure to install linux-image-extra if aufs is not present
+  apt: state=present name=linux-image-extra-{{ansible_kernel}}
+  when: aufs_module_result|failed
+- name: be sure that flynn repository key is present
+  apt_key: keyserver=keyserver.ubuntu.com id=BC79739C507A9B53BB1B0E7D820A5489998D827B state=present
+- name: be sure that flynn repository is present
+  apt_repository: repo='deb https://dl.flynn.io/ubuntu flynn main' state=present update_cache=yes
+- name: be sure that flynn-host is installed
+  apt: name=flynn-host state=present
+- name: be sure that flynn has downloaded required images
+  command: flynn-host download /etc/flynn/version.json
