@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  author: Djordje Stojanovic
+  description: 
+  # Some suggested licenses:
+  # - BSD (default)
+  # - MIT
+  # - GPLv2
+  # - GPLv3
+  # - Apache
+  # - CC-BY
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+  - name: Ubuntu
+    versions:
+      - trusty
+  #- name: Debian
+  #  versions:
+  #  - all
+  #  - etch
+  #  - lenny
+  #  - squeeze
+  #  - wheezy
+  categories:
+    - cloud
+    - clustering
+  dependencies: []
