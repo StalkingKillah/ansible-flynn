@@ -3,10 +3,9 @@
 - name: be sure that flynn is bootstrapped
   shell: "CONTROLLER_DOMAIN={{controller_domain}} DEFAULT_ROUTE_DOMAIN={{default_route_domain}} flynn-host bootstrap /etc/flynn/bootstrap-manifest.json"
   register: bootstrap
-  tags:
-    - bootstrap
-    - after-restart
-- debug: 'var="{{bootstrap.stderr | tail(2)}}"'
+- name: Print output
+  debug: 'var="{{bootstrap.stderr | tail(2)}}"'
   when: bootstrap.rc != 1
-- debug: 'var="{{bootstrap.stderr.split("\n") | remove_empty_elements}}"'
+- name: Print error log
+  debug: 'var="{{bootstrap.stderr.split("\n") | remove_empty_elements}}"'
   when: bootstrap.rc != 0 

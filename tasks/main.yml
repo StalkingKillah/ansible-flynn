@@ -2,4 +2,4 @@
 # file: tasks/main.yml
 - { include: setup.yml, tags: ['setup'] }
 - { include: layer-0.yml, tags: ['layer-0'] }
-- { include: layer-1.yml, tags: ['layer-1'] }
+- { include: layer-1.yml, tags: ['layer-1', 'after-reboot'], when: master_host is defined and inventory_hostname == master_host }
