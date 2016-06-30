@@ -1,14 +1,14 @@
 Flynn
-=========
+=====
 
-Flynn role for Ansible
+[Flynn](https://flynn.io) role for Ansible
 
 Requirements
 ------------
 
 Role requires this [filter](https://gist.github.com/StalkingKillah/b32c893ca12aa8bd8e3d) - [help](http://docs.ansible.com/developing_plugins.html#distributing-plugins)
 
-The example playbook requires httplib2 on local machine (required by the uri module)
+The example playbook requires python-httplib2 on your local machine (required by the uri module)
 
 Role Variables
 --------------
@@ -33,7 +33,9 @@ Example Playbook
 	  vars:
 	    - domain: 'demo.localflynn.com'
 	  tasks:
-	    - { include: 'tasks/main.yml', discovery_token: "{{hostvars['127.0.0.1']['discovery_token']}}", controller_domain: "{{domain}}", default_route_domain: "{{domain}}" }
+	    - include: 'tasks/main.yml'
+		  discovery_token: "{{hostvars['127.0.0.1']['discovery_token']}}"
+		  controller_domain: "{{domain}}", default_route_domain: "{{domain}}" }
 	  handlers:
 	    - include: 'handlers/main.yml'
 
